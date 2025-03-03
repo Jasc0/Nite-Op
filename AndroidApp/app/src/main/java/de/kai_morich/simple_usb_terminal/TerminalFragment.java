@@ -77,7 +77,8 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
     private boolean pendingNewline = false;
     private String newline = TextUtil.newline_crlf;
 
-    private TextView debugText;
+    private DataReadingSending dataReadingSending;
+
 
     public TerminalFragment() {
         mainLooper = new Handler(Looper.getMainLooper());
@@ -90,6 +91,8 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
                 }
             }
         };
+
+
     }
 
     /*
@@ -103,6 +106,8 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         deviceId = getArguments().getInt("device");
         portNum = getArguments().getInt("port");
         baudRate = getArguments().getInt("baud");
+
+
     }
 
     @Override
@@ -189,8 +194,6 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         sendText = view.findViewById(R.id.send_text);
         sendBtn = view.findViewById(R.id.send_btn);
 
-        debugText = view.findViewById(R.id.debug_text);
-
         hexWatcher = new TextUtil.HexWatcher(sendText);
         hexWatcher.enable(hexEnabled);
         sendText.addTextChangedListener(hexWatcher);
@@ -199,6 +202,10 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         View sendBtn = view.findViewById(R.id.send_btn);
         sendBtn.setOnClickListener(v -> send(sendText.getText().toString()));
         controlLines.onCreateView(view);
+
+        //TODO remove below
+        dataReadingSending = new DataReadingSending(view.findViewById(R.id.debug_text));
+
         return view;
     }
 
@@ -399,16 +406,17 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
 
     private void receive(ArrayDeque<byte[]> datas) {
         SpannableStringBuilder spn = new SpannableStringBuilder();
+
         for (byte[] data : datas) {
+            dataReadingSending.recieveData(data.clone());
+
             if (flowControlFilter != null)
                 data = flowControlFilter.filter(data);
             if (hexEnabled) {
                 spn.append(TextUtil.toHexString(data)).append('\n');
             } else {
+
                 String msg = new String(data);
-
-
-                debugText.setText(msg);
 
 
                 if (newline.equals(TextUtil.newline_crlf) && msg.length() > 0) {

@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <!-- Control line buttons at the top -->
     <LinearLayout
         android:id="@+id/controlLines"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="visible"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:visibility="gone">
 
         <ToggleButton
             android:id="@+id/controlLineRts"
@@ -28,15 +25,15 @@
             android:id="@+id/controlLineCts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="false"
             android:minWidth="48sp"
+            android:clickable="false"
             android:textColor="@android:color/secondary_text_dark"
             android:textOff="CTS"
             android:textOn="CTS" />
 
         <View
-            android:layout_width="6dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_width="6dp" />
 
         <ToggleButton
             android:id="@+id/controlLineDtr"
@@ -57,8 +54,8 @@
             android:textOn="DSR" />
 
         <View
-            android:layout_width="6dp"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_width="6dp" />
 
         <ToggleButton
             android:id="@+id/controlLineCd"
@@ -74,70 +71,46 @@
             android:id="@+id/controlLineRi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="false"
             android:minWidth="48sp"
+            android:clickable="false"
             android:textColor="@android:color/secondary_text_dark"
             android:textOff="RI"
             android:textOn="RI" />
 
     </LinearLayout>
 
-    <!-- Divider below control lines -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@id/controlLines"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="2dp" />
 
-    <!-- Receive text occupies upper half -->
     <TextView
         android:id="@+id/receive_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:freezesText="true"
         android:gravity="bottom"
         android:scrollbars="vertical"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintTop_toBottomOf="@id/controlLines"
-        app:layout_constraintBottom_toTopOf="@id/debug_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="percent"
-        app:layout_constraintHeight_percent="0.35" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <!-- Centered debug text -->
     <TextView
         android:id="@+id/debug_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="32sp"
-        app:layout_constraintTop_toBottomOf="@id/receive_text"
-        app:layout_constraintBottom_toTopOf="@id/send_text_layout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:text="TextView"
+        android:layout_gravity="center_horizontal"/>
 
-    <!-- Divider below debug_text -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@id/debug_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_height="2dp" />
 
-    <!-- Send text and button -->
     <LinearLayout
-        android:id="@+id/send_text_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/debug_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/send_text"
@@ -154,4 +127,5 @@
             app:srcCompat="@drawable/ic_send_white_24dp" />
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+
