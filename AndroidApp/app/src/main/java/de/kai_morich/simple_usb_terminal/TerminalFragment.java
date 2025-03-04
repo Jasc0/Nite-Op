@@ -408,7 +408,7 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         SpannableStringBuilder spn = new SpannableStringBuilder();
 
         for (byte[] data : datas) {
-            dataReadingSending.recieveData(data.clone());
+            dataReadingSending.receiveData(data.clone());
 
             if (flowControlFilter != null)
                 data = flowControlFilter.filter(data);
