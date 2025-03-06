@@ -107,7 +107,6 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         portNum = getArguments().getInt("port");
         baudRate = getArguments().getInt("baud");
 
-
     }
 
     @Override
@@ -204,7 +203,10 @@ public class TerminalFragment extends Fragment implements ServiceConnection, Ser
         controlLines.onCreateView(view);
 
         //TODO remove below
-        dataReadingSending = new DataReadingSending(view.findViewById(R.id.debug_text));
+        //dataReadingSending = new DataReadingSending(view.findViewById(R.id.debug_text));
+        DataReadingSending.getInstance().initialize(view.findViewById(R.id.debug_text));
+        //ScheduleDataSendingWorker.scheduleDataSending(getActivity());
+
 
         return view;
     }
